@@ -36,7 +36,7 @@ function LoginModal() {
             </DialogHeader>
             <Button variant={"outline"} onClick={handleLogin}>
                 <Image
-                    src={"/images.google.png"}
+                    src={"/images/google.png"}
                     className='mr-4'
                     width={25}
                     height={25}
