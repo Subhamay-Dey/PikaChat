@@ -1,7 +1,8 @@
-import DashNavbar from '@/components/dashboard/dashNavbar'
+
 import { getServerSession } from 'next-auth'
 import React from 'react'
 import { authOptions, CustomSession } from '../api/auth/[...nextauth]/options'
+import DashNavbar from '@/components/dashboard/DashNavbar';
 
 async function Dashboard() {
 
