@@ -10,6 +10,7 @@ async function Dashboard() {
 
   return (
     <div>
+      <p>{JSON.stringify(session)}</p>
       <DashNavbar
         name={session?.user?.name!}
         image={session?.user?.image ?? undefined}
