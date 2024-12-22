@@ -10,5 +10,7 @@ router.post("/auth/login", AuthController.login)
 
 //Chat Group Route
 router.post("/chat-group", authMiddleware, ChatGroupController.store)
+router.get("/chat-group", authMiddleware, ChatGroupController.index)
+
 
 export default router
