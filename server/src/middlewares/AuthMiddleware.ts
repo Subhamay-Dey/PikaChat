@@ -13,7 +13,7 @@ const authMiddleware = (req:Request, res:Response, next:NextFunction) => {
         if(err) {
             return res.status(403).json({status:403, message: "Invalid token" })
         }
-        req.user = user;
+        req.user = user as AuthUser;
         next()
     })
 }
