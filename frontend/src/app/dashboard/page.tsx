@@ -17,7 +17,7 @@ async function Dashboard() {
         image={session?.user?.image ?? undefined}
       />
       <div className='flex justify-end mt-20'>
-        <CreateChat/>
+        <CreateChat user={session?.user!}/>
       </div>
     </div>
   )
