@@ -29,11 +29,11 @@ function CreateChat() {
   }
 
   return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={setOpen} >
         <DialogTrigger asChild>
             <Button>Create Group</Button>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent onInteractOutside={(e) => e.preventDefault()}>
           <DialogHeader>
             <DialogTitle>Create your new Chat Group</DialogTitle>
           </DialogHeader>
