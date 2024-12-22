@@ -54,6 +54,27 @@ class ChatGroupController {
             return res.json(500).json({message:"something went wrong, please try again!"})
         }
     }
+
+    static async update(req:Request, res:Response) {
+        try {
+            const body = req.body
+            const {id} = req.params
+            await prisma.chatGroup.update({
+                data: {
+                    title: body.title,
+                    passcode: body.passcode,
+                },
+                where: {
+                    id:id
+                }
+            })
+            
+            return res.status(201).json({message: "Chat group updated successfully"})
+        } catch (error) {
+            return res.json(500).json({message:"something went wrong, please try again!"})
+        }
+    }
+    
 }
 
 export default ChatGroupController
