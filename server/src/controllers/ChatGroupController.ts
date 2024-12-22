@@ -74,6 +74,21 @@ class ChatGroupController {
             return res.json(500).json({message:"something went wrong, please try again!"})
         }
     }
+
+    static async destroy(req:Request, res:Response) {
+        try {
+            const {id} = req.params
+            const groups = await prisma.chatGroup.delete({
+                where: {
+                    id:id
+                },
+            })
+
+            return res.status(201).json({message: "Chat group deleted successfully"})
+        } catch (error) {
+            return res.json(500).json({message:"something went wrong, please try again!"})
+        }
+    }
     
 }
 
