@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import GroupChatCardMenu from "./GroupChatCardMenu";
 import { CustomUser } from "@/app/api/auth/[...nextauth]/options";
 
 export default function GroupChatCard({group,user}: {group:GroupChatType, user:CustomUser}) {
@@ -7,6 +8,7 @@ export default function GroupChatCard({group,user}: {group:GroupChatType, user:C
     <Card>
       <CardHeader className="flex-row justify-between items-center ">
         <CardTitle className="text-2xl">{group.title}</CardTitle>
+        <GroupChatCardMenu user={user} group={group} />
       </CardHeader>
       <CardContent>
         <p>
