@@ -3,7 +3,6 @@ import prisma from "../config/db.config.js"
 
 class ChatGroupController {
 
-    
     static async store(req:Request, res:Response) {
         try {
             const body = req.body

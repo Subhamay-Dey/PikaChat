@@ -15,5 +15,4 @@ router.get("/chat-group:id", authMiddleware, ChatGroupController.show)
 router.put("/chat-group:id", authMiddleware, ChatGroupController.update)
 router.delete("/chat-group:id", authMiddleware, ChatGroupController.destroy)
 
-
 export default router
