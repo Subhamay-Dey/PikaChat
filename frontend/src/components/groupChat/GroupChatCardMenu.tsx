@@ -11,6 +11,7 @@ import dynamic from "next/dynamic";
 import { CustomUser } from "@/app/api/auth/[...nextauth]/options";
 import { toast } from "sonner";
 import Env from "@/lib/env";
+import EditGroupChat from "./EditGroupChat";
 const DeleteChatGroup = dynamic(() => import("./DeleteChatGroup"));
 
 export default function GroupChatCardMenu({group,user}: {group: GroupChatType;user: CustomUser;}) {
@@ -31,6 +32,16 @@ export default function GroupChatCardMenu({group,user}: {group: GroupChatType;us
             setOpen={setDeleteDialog}
             groupId={group.id}
             token={user.token!}
+          />
+        </Suspense>
+      )}
+      {editDialoag && (
+        <Suspense fallback={<p>Loading...</p>}>
+          <EditGroupChat
+            open={editDialoag}
+            setOpen={setEditDialog}
+            user={user}
+            group={group}
           />
         </Suspense>
       )}
