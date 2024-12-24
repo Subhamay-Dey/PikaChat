@@ -14,7 +14,8 @@ import Env from "@/lib/env";
 import EditGroupChat from "./EditGroupChat";
 const DeleteChatGroup = dynamic(() => import("./DeleteChatGroup"));
 
-export default function GroupChatCardMenu({group,user}: {group: ChatGroupType;user: CustomUser;}) {
+export default function GroupChatCardMenu({group,user}: {group:ChatGroupType,user: CustomUser}) {
+
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [editDialoag, setEditDialog] = useState(false);
 
@@ -51,7 +52,8 @@ export default function GroupChatCardMenu({group,user}: {group: ChatGroupType;us
           <DotsVerticalIcon className="h-5 w-5" />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem onClick={handleCopy}>Copy</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleCopy}>Copy
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setEditDialog(true)}>
             Edit
           </DropdownMenuItem>
