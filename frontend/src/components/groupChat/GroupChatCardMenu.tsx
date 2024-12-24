@@ -14,7 +14,7 @@ import Env from "@/lib/env";
 import EditGroupChat from "./EditGroupChat";
 const DeleteChatGroup = dynamic(() => import("./DeleteChatGroup"));
 
-export default function GroupChatCardMenu({group,user}: {group: GroupChatType;user: CustomUser;}) {
+export default function GroupChatCardMenu({group,user}: {group: ChatGroupType;user: CustomUser;}) {
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [editDialoag, setEditDialog] = useState(false);
 

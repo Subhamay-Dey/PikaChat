@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import GroupChatCardMenu from "./GroupChatCardMenu";
 import { CustomUser } from "@/app/api/auth/[...nextauth]/options";
 
-export default function GroupChatCard({group,user}: {group:GroupChatType, user:CustomUser}) {
+export default function GroupChatCard({group,user}: {group:ChatGroupType, user:CustomUser}) {
   return (
     <Card>
       <CardHeader className="flex-row justify-between items-center ">

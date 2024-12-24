@@ -17,7 +17,7 @@ import { CHAT_GROUP_URL } from "@/lib/apiEndPoints";
 import { toast } from "sonner";
 import { clearCache } from "@/actions/common";
 
-export default function EditGroupChat({user,group,open,setOpen}: {user: CustomUser,group: GroupChatType,open: boolean,setOpen: Dispatch<SetStateAction<boolean>>}) {
+export default function EditGroupChat({user,group,open,setOpen}: {user: CustomUser,group: ChatGroupType,open: boolean,setOpen: Dispatch<SetStateAction<boolean>>}) {
 
   const [loading, setLoading] = useState(false);
 
