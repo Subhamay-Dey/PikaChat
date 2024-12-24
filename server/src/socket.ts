@@ -4,6 +4,11 @@ export function setupSocket(io:Server) {
     io.on('connection', (socket) => {
         console.log('The socket is connected..', socket.id);
 
+        socket.on("message", (data) => {
+            console.log("Server side message", data);
+            socket.emit("messsage", data);
+        })
+
         socket.on("disconnect", () => {
             console.log("Client disconnected", socket.id);
         })
