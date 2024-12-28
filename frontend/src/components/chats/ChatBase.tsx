@@ -20,11 +20,13 @@ export default function ChatBase() {
         })
 
         return () => {
-            socket.disconnect();
+            socket.close();
         }
     },[])
 
     const handleClick = () => {
+        console.log("Hey I am clicked ..." + uuidv4());
+        
         socket.emit("message", {name:"Subho", id:uuidv4()})
     }
 
