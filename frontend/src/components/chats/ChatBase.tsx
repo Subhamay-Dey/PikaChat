@@ -2,7 +2,7 @@
 
 import { getSocket } from '@/lib/socket.config'
 import React, {useEffect, useMemo} from 'react'
-import {v4 as uuidv4} from "uuid"
+import {v4 as uuidV4} from "uuid"
 import { Button } from '../ui/button';
 
 export default function ChatBase() {
@@ -15,7 +15,7 @@ export default function ChatBase() {
     useEffect(() => {
 
         socket.on('message', (data:any) => {
-            console.log(data);
+            console.log("The socket message is:", data);
             
         })
 
@@ -25,9 +25,9 @@ export default function ChatBase() {
     },[])
 
     const handleClick = () => {
-        console.log("Hey I am clicked ..." + uuidv4());
+        console.log("Hey I am clicked ..." + uuidV4());
         
-        socket.emit("message", {name:"Subho", id:uuidv4()})
+        socket.emit("message", {name:"Subho", id:uuidV4()})
     }
 
   return (
