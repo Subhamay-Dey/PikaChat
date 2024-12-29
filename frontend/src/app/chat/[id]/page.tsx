@@ -1,10 +1,10 @@
-import ChatBase from '@/components/chats/ChatBase';
+import ChatBase from '@/components/chat/ChatBase';
 import React from 'react'
 
 async function chat({params}:{params:{id:string}}) {
 
-    const { id } = await params;  // Ensure params are awaited
-
+    const { id } = await params;
+    
     console.log("The chat group id is:", params.id);
     
   return (

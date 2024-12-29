@@ -18,7 +18,6 @@ const io = new Server(server, {
 })
 
 setupSocket(io)
-
 export {io}
 
 // * Middleware
