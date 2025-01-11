@@ -13,13 +13,18 @@ import { createAdapter } from "@socket.io/redis-streams-adapter";
 import redis from "./config/redis.config.js";
 import { instrument } from "@socket.io/admin-ui";
 
-
 const server = createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: ["http://localhost:3000", "https://admin.socket.io"],
+    credentials: true,
   },
   adapter: createAdapter(redis)
+})
+
+instrument(io, {
+  auth: false,
+  mode: "development",
 })
 
 setupSocket(io) 
