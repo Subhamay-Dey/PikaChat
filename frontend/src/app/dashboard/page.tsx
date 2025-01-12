@@ -4,7 +4,7 @@ import React from 'react'
 import { authOptions, CustomSession } from '../api/auth/[...nextauth]/options'
 import DashNavbar from '@/components/dashboard/DashNavbar';
 import CreateChat from '@/components/groupChat/CreateChat';
-import { fetchChatGroups } from '@/groupfetch/groupFetch';
+import { fetchChatGroups } from '@/fetch/groupFetch';
 import GroupChatCard from '@/components/groupChat/GroupChatCard';
 
 async function Dashboard() {
