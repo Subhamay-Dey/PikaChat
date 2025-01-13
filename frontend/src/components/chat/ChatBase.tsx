@@ -4,6 +4,7 @@ import { getSocket } from '@/lib/socket.config'
 import React, {useEffect, useMemo} from 'react'
 import {v4 as uuidV4} from 'uuid'
 import ChatSidebar from './ChatSidebar'
+import ChatNav from './ChatNav'
 
 export default function ChatBase({group, users}:{group:ChatGroupType, users: Array<GroupChatUserType> | []}) {
 
@@ -31,8 +32,11 @@ export default function ChatBase({group, users}:{group:ChatGroupType, users: Arr
     // }
 
   return (
-    <div>
+    <div className='flex'>
         <ChatSidebar users={users}/>
+        <div className='w-full md:w-4/5 bg-gradient-to-b from-gray-500-to-white'>
+            <ChatNav chatGroup={group} users={users}/>
+        </div>
     </div>
   )
 }
