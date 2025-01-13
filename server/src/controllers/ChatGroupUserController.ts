@@ -1,6 +1,12 @@
 import { Request, Response } from "express"
 import prisma from "../config/db.config.js";
 
+interface GroupUserType {
+    name: string,
+    image?: string,
+    group_id: string,
+}
+
 class ChatGroupUserController {
     static async index(req:Request, res:Response) {
         try {
@@ -11,6 +17,17 @@ class ChatGroupUserController {
                 }
             })
             return res.status(200).json({message: "Data fetched successfully", data: users})
+        } catch (error) {
+            return res.status(500).json({message: "Something went wrong, Please try again!"})
+        }
+    }
+    static async store(req:Request, res:Response) {
+        try {
+            const body:GroupUserType = req.body;
+            await prisma.groupUsers.create({
+                data: body
+            })
+            return res.status(200).json({message: "User added successfully"})
         } catch (error) {
             return res.status(500).json({message: "Something went wrong, Please try again!"})
         }
