@@ -27,13 +27,12 @@ export default function ChatBase({groupId}:{groupId:string}) {
     },[])
 
     const handleClick = () => {
-        console.log("Hey I am clicking..." + uuidV4());
-        socket.emit("message", {name:"Subho", id:uuidV4()})
+        socket.emit("message", {name:"Subho", id:uuidV4()});
     }
 
   return (
     <div>
-        <Button onClick={handleClick}>Send message</Button>
+
     </div>
   )
 }
