@@ -1,7 +1,7 @@
 import React from "react";
 import MobileChatSidebar from "./MobileChatSidebar";
 
-export default function ChatNav({chatGroup,users,user}: {chatGroup: GroupChatType, users: Array<GroupChatUserType> | [], user?: GroupChatUserType}) {
+export default function ChatNav({chatGroup,users,user}: {chatGroup: ChatGroupType, users: Array<GroupChatUserType> | [], user?: GroupChatUserType}) {
   return (
     <nav className="w-full flex justify-between items-center  px-6 py-2 border-b">
       <div className="flex space-x-4 md:space-x-0 items-center">
