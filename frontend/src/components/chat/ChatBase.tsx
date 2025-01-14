@@ -34,7 +34,7 @@ export default function ChatBase({group, users}:{group:ChatGroupType, users: Arr
   return (
     <div className='flex'>
         <ChatSidebar users={users}/>
-        <div className='w-full md:w-4/5 bg-gradient-to-b from-gray-500-to-white'>
+        <div className='w-full md:w-4/5 bg-gradient-to-b from-gray-50 to-white'>
             <ChatNav chatGroup={group} users={users}/>
         </div>
     </div>

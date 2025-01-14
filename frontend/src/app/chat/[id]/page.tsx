@@ -1,6 +1,6 @@
 import ChatBase from '@/components/chat/ChatBase';
 import { fetchChatGroup } from '@/fetch/groupFetch';
-import { fetchChatUsers } from '@/fetch/groupUserFetch';
+import { fetchChatUsers } from '@/fetch/groupFetch';
 import { notFound } from 'next/navigation';
 import React from 'react'
 
