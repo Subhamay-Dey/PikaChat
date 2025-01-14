@@ -24,10 +24,10 @@ class ChatGroupUserController {
     static async store(req:Request, res:Response) {
         try {
             const body:GroupUserType = req.body;
-            await prisma.groupUsers.create({
+            const users = await prisma.groupUsers.create({
                 data: body
             })
-            return res.status(200).json({message: "User added successfully"})
+            return res.status(200).json({message: "User added successfully", data: users})
         } catch (error) {
             return res.status(500).json({message: "Something went wrong, Please try again!"})
         }

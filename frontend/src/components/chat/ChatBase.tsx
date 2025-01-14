@@ -31,6 +31,7 @@ export default function ChatBase({group, users}:{group:ChatGroupType, users: Arr
     // const handleClick = () => {
     //     socket.emit("message", {name:"Subho", id:uuidV4()});
     // }
+    
     const [open, setOpen] = useState(true)
 
   return (
