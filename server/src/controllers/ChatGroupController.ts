@@ -11,7 +11,7 @@ class ChatGroupController {
                 data: {
                     title: body.title,
                     passcode: body.passcode,
-                    user_id: user.id
+                    user_id: user.id,
                 }
             })
             
