@@ -3,7 +3,6 @@ import prisma from "../config/db.config.js";
 
 interface GroupUserType {
     name: string,
-    image?: string,
     group_id: string,
 }
 
