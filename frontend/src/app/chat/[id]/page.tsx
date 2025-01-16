@@ -1,5 +1,5 @@
 import ChatBase from '@/components/chat/ChatBase';
-import { fetchChatGroup } from '@/fetch/groupFetch';
+import { fetchChatGroup, fetchChats } from '@/fetch/groupFetch';
 import { fetchChatUsers } from '@/fetch/groupFetch';
 import { notFound } from 'next/navigation';
 import React from 'react'
@@ -18,9 +18,11 @@ async function chat({params}:{params:{id:string}}) {
 
   const users:Array<GroupChatUserType> | [] = await fetchChatUsers(params.id)
 
+  const chats: Array<MessageType> | [] = await fetchChats(params.id)
+
   return (
     <div>
-      <ChatBase group={group} users={users}/>
+      <ChatBase group={group} users={users} oldMessages={chats}/>
     </div>
   )
 }
