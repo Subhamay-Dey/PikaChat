@@ -12,3 +12,11 @@ type GroupChatUserType = {
     group_id: string,
     created_at: string
 }
+
+type MessageType = {
+    id: string,
+    name: string,
+    group_id: string,
+    message: string,
+    created_at: string
+}
