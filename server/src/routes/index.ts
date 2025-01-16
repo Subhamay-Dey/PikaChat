@@ -18,6 +18,6 @@ router.delete("/chat-group/:id", authMiddleware, ChatGroupController.destroy);
 
 // Chat Group Users
 router.get("/chat-group-users", ChatGroupUserController.index);
-router.get("/chat-group-users", ChatGroupUserController.store);
+router.post("/chat-group-users", ChatGroupUserController.store);
 
 export default router;
