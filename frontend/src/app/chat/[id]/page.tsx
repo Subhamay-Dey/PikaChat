@@ -1,3 +1,4 @@
+"use server"
 import ChatBase from '@/components/chat/ChatBase';
 import { fetchChatGroup, fetchChats } from '@/fetch/groupFetch';
 import { fetchChatUsers } from '@/fetch/groupFetch';
