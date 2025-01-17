@@ -33,6 +33,7 @@ export function setupSocket(io: Server) {
 
         socket.on("disconnect", () => {
             console.log("A user disconnected", socket.id);
+            
         });
     });
 }
