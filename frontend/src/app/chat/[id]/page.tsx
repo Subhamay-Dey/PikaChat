@@ -1,12 +1,12 @@
 import ChatBase from '@/components/chat/ChatBase';
 import { fetchChatGroup, fetchChats } from '@/fetch/groupFetch';
 import { fetchChatUsers } from '@/fetch/groupFetch';
-import { notFound, useParams } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import React from 'react'
 
-async function chat() {
+async function chat({ params }: { params: { id: string } }) {
 
-  const { id } = useParams() as { id: string }
+  const { id } = params;
 
   if(id?.length != 36) {
     return notFound();
