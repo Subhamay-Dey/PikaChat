@@ -4,7 +4,13 @@ import { fetchChatUsers } from '@/fetch/groupFetch';
 import { notFound } from 'next/navigation';
 import React from 'react'
 
-async function chat({params}:{params:{id:string}}) {
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
+
+async function chat({params}: PageProps) {
 
   const id = params.id
 
