@@ -5,9 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from "@/components/ui/label";
 import Image from 'next/image';
 import { signIn } from "next-auth/react";
-import { useDispatch, useSelector } from 'react-redux';
-import { setLocation } from '@/store/slices/locationSlice';
-import { RootState } from '@/store/store';
 
 const LoginModal = () => {
   

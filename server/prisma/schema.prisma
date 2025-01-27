@@ -18,9 +18,9 @@ model User {
   name        String      @db.VarChar(191)
   email       String      @unique @db.VarChar(191)
   image       String?
-  city        String     @db.VarChar(100)
+  city        String?     @db.VarChar(100)
   state       String?     @db.VarChar(100)
-  nationality String     @db.VarChar(100)
+  nationality String?     @db.VarChar(100)
   provider    String      @db.VarChar(100)
   oauth_id    String
   created_at  DateTime    @default(now())
