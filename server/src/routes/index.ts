@@ -4,11 +4,15 @@ import authMiddleware from "../middlewares/AuthMiddleware.js";
 import ChatGroupController from "../controllers/ChatGroupController.js";
 import ChatGroupUserController from "../controllers/ChatGroupUserController.js";
 import ChatsController from "../controllers/ChatsController.js";
+import LocationController from "../controllers/LocationController.js";
 
 const router = Router();
 
 // Auth Route
 router.post("/auth/login", AuthController.login);
+
+//User location route
+router.post("/details", authMiddleware, LocationController.addlocation);
 
 // Chat Group Route
 router.post("/chat-group", authMiddleware, ChatGroupController.store);
