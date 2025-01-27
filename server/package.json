@@ -20,10 +20,11 @@
     "@types/node": "^20.14.11",
     "concurrently": "^8.2.2",
     "nodemon": "^3.1.4",
+    "prisma": "^6.2.1",
     "typescript": "^5.5.3"
   },
   "dependencies": {
-    "@prisma/client": "^6.1.0",
+    "@prisma/client": "^6.2.1",
     "@socket.io/admin-ui": "^0.5.1",
     "@socket.io/redis-streams-adapter": "^0.2.2",
     "cors": "^2.8.5",
@@ -31,7 +32,6 @@
     "express": "^4.19.2",
     "ioredis": "^5.4.2",
     "jsonwebtoken": "^9.0.2",
-    "prisma": "^6.1.0",
     "socket.io": "^4.8.1"
   }
 }

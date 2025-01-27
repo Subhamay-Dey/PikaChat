@@ -16,7 +16,7 @@ function LoginModal() {
 
     const handleLogin = () => {
         signIn("google", {
-            callbackUrl: "/dashboard",
+            callbackUrl: "/",
             redirect: true
         })
     }
