@@ -8,7 +8,7 @@ import { signIn } from "next-auth/react";
 
 const LoginModal = () => {
   
-  const [city, setCityState] = useState('');
+  const [city, setCityStat] = useState('');
   const [state, setStateState] = useState('');
   const [nationality, setNationalityState] = useState('');
 
