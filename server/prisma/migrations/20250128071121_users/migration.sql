@@ -3,12 +3,11 @@ CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(191) NOT NULL,
     "email" VARCHAR(191) NOT NULL,
+    "password" VARCHAR(191) NOT NULL,
     "image" TEXT,
-    "city" VARCHAR(100),
-    "state" VARCHAR(100),
-    "nationality" VARCHAR(100),
-    "provider" VARCHAR(100) NOT NULL,
-    "oauth_id" TEXT NOT NULL,
+    "city" VARCHAR(191),
+    "state" VARCHAR(191),
+    "nationality" VARCHAR(191),
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
