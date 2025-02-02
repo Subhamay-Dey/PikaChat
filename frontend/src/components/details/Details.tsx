@@ -34,18 +34,26 @@ function Details({user}:{user: any}) {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    console.log(`Updating ${e.target.id} to:`, e.target.value);
+    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("The details payload is", formData);
 
+    console.log("User token before request:", user.token);
+
+    if (!user || !user.token) {
+      toast.error("User token is missing. Please log in again.");
+      return;
+    }
+
     try {
       setLoading(true);
       const {data} = await axios.post(LOCATION_URL, formData, {
         headers: {
-          Authorization: user.token
+          Authorization: `Bearer ${user.token}`
         }
       });
       console.log(data);
@@ -55,13 +63,9 @@ function Details({user}:{user: any}) {
         toast.success(data?.message)
         router.push("/");
       }
-    } catch (error) {
-      setLoading(false)
-        if (error instanceof AxiosError) {
-            toast.error(error.message)
-        } else {
-            toast.error("Something went wrong, please try again!")
-        }
+    }catch (error) {
+      setLoading(false);
+     console.log(error);
     }
     
   }
