@@ -13,9 +13,7 @@ class LocationController {
         try {
             const body:LocationType = req.body
 
-            console.log("Backend log" + body);
-
-            await prisma.user.update({
+            const savedUserData = await prisma.user.update({
                 where: { id: req.user.id },
                 data: {
                     city: body.city as string,
@@ -23,8 +21,10 @@ class LocationController {
                     nationality: body.nationality as string,
                 }
             })
+            console.log(savedUserData);
+            return res.status(200).json({message: "User updated succesfully"})
         } catch (error) {
-            res.status(500).json({message:"Internal Error"})
+            return res.status(500).json({message:"Internal Error"})
         }
     }
 }
