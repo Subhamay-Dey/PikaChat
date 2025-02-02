@@ -27,20 +27,20 @@ function Details({user}:{user: any}) {
   const router = useRouter();
 
   const [loading, setLoading] = React.useState(false)
-  const [formData, setFormData] = useState<locationPayloadType>({
-    city: "",
-    state: "",
-    nationality: "",
-  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(`Updating ${e.target.id} to:`, e.target.value);
-    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
-  };
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [nationality, setNationality] = useState("");
+
+  const payload = {
+    city,
+    state,
+    nationality,
+  }
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("The details payload is", formData);
+    console.log("The details payload is", payload);
 
     console.log("User token before request:", user.token);
 
@@ -51,22 +51,35 @@ function Details({user}:{user: any}) {
 
     try {
       setLoading(true);
-      const {data} = await axios.post(LOCATION_URL, formData, {
+    
+      const response = await fetch("http://localhost:8000/api/details", {
+        method: "POST",
         headers: {
-          Authorization: `Bearer ${user.token}`
-        }
+          "Content-Type": "application/json",
+          Authorization: user.token,
+        },
+        body: JSON.stringify({
+          city, 
+          state,
+          nationality
+        }),
       });
+    
+      const data = await response.json();
+      
+      if(!response.ok) throw new Error(data.message || "Form submission failed") // Parse the response as JSON
+    
       console.log(data);
       console.log(user.token);
-      if(data?.message){
-        setLoading(false)
-        toast.success(data?.message)
-        router.push("/");
-      }
-    }catch (error) {
       setLoading(false);
-     console.log(error);
+      toast.success(data?.message);
+      router.push("/");
+      
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
     }
+    
     
   }
 
@@ -86,8 +99,8 @@ function Details({user}:{user: any}) {
                 id="city"
                 required
                 placeholder="Enter your city"
-                value={formData.city}
-                onChange={handleChange}
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
               />
             </div>
             <div className="flex flex-col space-y-1.5">
@@ -96,8 +109,8 @@ function Details({user}:{user: any}) {
                 id="state"
                 required
                 placeholder="Enter your state"
-                value={formData.state}
-                onChange={handleChange}
+                value={state}
+                onChange={(e) => setState(e.target.value)}
               />
             </div>
 
@@ -107,8 +120,8 @@ function Details({user}:{user: any}) {
                 id="nationality"
                 required
                 placeholder="Enter your nationality"
-                value={formData.nationality}
-                onChange={handleChange}
+                value={nationality}
+                onChange={(e) => setNationality(e.target.value)}
               />
             </div>
 
