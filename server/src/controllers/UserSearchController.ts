@@ -14,9 +14,20 @@ class UserSearchController {
 
             const users = await prisma.user.findMany({
                 where:{
-                    nationality: body.nationality,
-                    ...(body.city && {city:body.city}),
-                    ...(body.state && {state:body.state}),
+                    nationality: {
+                        equals: body.nationality,
+                        mode: "insensitive",
+                    },
+                    ...(body.city && {city:{
+                        equals: body.city,
+                        mode: "insensitive",
+                        }
+                    }),
+                    ...(body.state && {state:{
+                        equals: body.state,
+                        mode: "insensitive",
+                        }
+                    }),
                 },
                 orderBy: {
                     created_at: "desc"
