@@ -14,16 +14,15 @@ class UserSearchController {
 
             const users = await prisma.user.findMany({
                 where:{
-                    city: body.city,
-                    state: body.state,
+                    city: body?.city,
+                    state: body?.state,
                     nationality: body.nationality,
                 },
                 orderBy: {
                     created_at: "desc"
                 }
         })
-        res.status(200).json({message:"User fetched successfully"});
-        return users;
+        res.status(200).json({message:"User fetched successfully", users});
         } catch (error) {
             console.log(error.message);
             res.status(400).json({message:"Something went wrong"})
