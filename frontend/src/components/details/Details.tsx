@@ -12,8 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import axios, { AxiosError } from "axios";
-import { LOCATION_URL } from "@/lib/apiEndPoints";
 import { toast } from "sonner";
 
 function Details({user}:{user: any}) {

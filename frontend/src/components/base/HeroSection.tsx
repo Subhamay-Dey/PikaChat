@@ -18,9 +18,13 @@ export default function HeroSection() {
           Start Chatting
         </Button>
       </Link>
+      <Link href={"/search"}>
+        <Button size="lg" className="animate-pulse mt-4">
+          Search Users
+        </Button>
+      </Link>
 
       <div className="mt-12 w-full max-w-5xl flex justify-center">
-        {/* Placeholder for Illustration/Image */}
         <Image
           src="/images/conversation.svg"
           alt="Illustration"
