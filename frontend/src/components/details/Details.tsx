@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -21,19 +21,29 @@ function Details({user}:{user: any}) {
   interface locationPayloadType {
     city: string,
     state: string,
-    nationality: string,
+    nationality: string, 
   }
 
   const router = useRouter();
 
   const [loading, setLoading] = React.useState(false)
+  const [formData, setFormData] = useState<locationPayloadType>({
+    city: "",
+    state: "",
+    nationality: "",
+  });
 
-  const submitHandler = async (payload:locationPayloadType) => {
-    console.log("The details payload is", payload);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const submitHandler = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("The details payload is", formData);
 
     try {
       setLoading(true);
-      const {data} = await axios.post(LOCATION_URL, payload, {
+      const {data} = await axios.post(LOCATION_URL, formData, {
         headers: {
           Authorization: user.token
         }
@@ -64,7 +74,7 @@ function Details({user}:{user: any}) {
         <CardDescription>Add your city, state and nationality.</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={() => submitHandler}>
+        <form onSubmit={submitHandler}>
           <div className="grid w-full items-center py-4 gap-6">
             <div className="flex flex-col space-y-2.5">
               <Label htmlFor="city">City/Town Name</Label>
@@ -72,6 +82,8 @@ function Details({user}:{user: any}) {
                 id="city"
                 required
                 placeholder="Enter your city"
+                value={formData.city}
+                onChange={handleChange}
               />
             </div>
             <div className="flex flex-col space-y-1.5">
@@ -80,6 +92,8 @@ function Details({user}:{user: any}) {
                 id="state"
                 required
                 placeholder="Enter your state"
+                value={formData.state}
+                onChange={handleChange}
               />
             </div>
 
@@ -89,6 +103,8 @@ function Details({user}:{user: any}) {
                 id="nationality"
                 required
                 placeholder="Enter your nationality"
+                value={formData.nationality}
+                onChange={handleChange}
               />
             </div>
 
