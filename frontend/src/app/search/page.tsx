@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
-function page() {
+function Search() {
 
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
@@ -28,13 +28,14 @@ function page() {
         try {
             setLoading(true);
 
-            const response = await fetch("http://localhost:8000/api/search", {
+            const queryParams = new URLSearchParams({
+                ...(city && { city }),
+                ...(state && { state }),
+                nationality,
+            }).toString();
+
+            const response = await fetch(`http://localhost:8000/api/search?${queryParams}`, {
                 method: "GET",
-                body: JSON.stringify({
-                    city,
-                    state,
-                    nationality,
-                })
             });
 
             const data = await response.json();
@@ -45,61 +46,65 @@ function page() {
             toast.success(data?.message);
 
         } catch (error) {
-            setLoading(false);
             console.log(error);
+            toast.error(String(error));
+        } finally {
+          setLoading(false);
         }
     }
 
-
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      <form onSubmit={submitHandler}>
-        <div className="gap-10">
-            <Label htmlFor="city">City/Town Name</Label>
-            <Card className="w-[450px] h-[50px]">
+      <form onSubmit={submitHandler} className="flex flex-col gap-6">
+        <div>
+          <Label htmlFor="city">City/Town Name</Label>
+          <Card className="w-[450px] h-[50px]">
             <Input
-                id="search"
-                name="firstName"
-                type="text"
-                placeholder="Search users"
-                className="h-full"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
+              id="city"
+              type="text"
+              placeholder="Enter city"
+              className="h-full"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
             />
-            </Card>
-            <Label htmlFor="city">State Name</Label>
-            <Card className="w-[450px] h-[50px]">
-            <Input
-                id="search"
-                name="firstName"
-                type="text"
-                placeholder="Search users"
-                className="h-full"
-                value={state}
-                onChange={(e) => setState(e.target.value)}
-            />
-            </Card>
-            <Label htmlFor="city">Nationality Name</Label>
-            <Card className="w-[450px] h-[50px]">
-            <Input
-                id="search"
-                name="firstName"
-                type="text"
-                placeholder="Search users"
-                className="h-full"
-                required
-                value={nationality}
-                onChange={(e) => setNationality(e.target.value)}
-            />
-            </Card>
-
-            <Button className="mt-4 py-5" type="submit" disabled={loading}>
-                {loading ? "Processing" : "Submit"}
-            </Button>
+          </Card>
         </div>
+
+        <div>
+          <Label htmlFor="state">State Name</Label>
+          <Card className="w-[450px] h-[50px]">
+            <Input
+              id="state"
+              type="text"
+              placeholder="Enter state"
+              className="h-full"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+            />
+          </Card>
+        </div>
+
+        <div>
+          <Label htmlFor="nationality">Nationality Name</Label>
+          <Card className="w-[450px] h-[50px]">
+            <Input
+              id="nationality"
+              type="text"
+              placeholder="Enter nationality"
+              className="h-full"
+              required
+              value={nationality}
+              onChange={(e) => setNationality(e.target.value)}
+            />
+          </Card>
+        </div>
+
+        <Button className="mt-4 py-5" type="submit" disabled={loading}>
+          {loading ? "Processing..." : "Submit"}
+        </Button>
       </form>
     </div>
   );
 }
 
-export default page;
+export default Search;
