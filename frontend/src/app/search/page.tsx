@@ -54,7 +54,8 @@ function Search() {
     }
 
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="w-full h-screen flex flex-col pt-20 justify-start items-center">
+      <div className="text-[50px] font-bold mb-6">Connect to people by thier location</div>
       <form onSubmit={submitHandler} className="flex flex-col gap-6">
         <div>
           <Label htmlFor="city">City/Town Name</Label>
