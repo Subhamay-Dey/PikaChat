@@ -13,6 +13,7 @@ function Search() {
     const [state, setState] = useState('');
     const [nationality, setNationality] = useState('');
     const [loading, setLoading] = useState(false);
+    const [users, setUsers] = useState([]);
 
     const payload = {
         city,
@@ -40,10 +41,12 @@ function Search() {
 
             const data = await response.json();
 
-            if(!response.ok) throw new Error(data.message || "Form submission failed")
+            if(!response.ok) throw new Error(data.message || "Form submission failed");
+            
             console.log(data);
-            setLoading(false);
             toast.success(data?.message);
+
+            setUsers(data?.data || []);
 
         } catch (error) {
             console.log(error);
@@ -104,6 +107,34 @@ function Search() {
           {loading ? "Processing..." : "Submit"}
         </Button>
       </form>
+
+      <div className="mt-10">
+        {users.length > 0 ? (
+          <div className="space-y-4">
+            {users.map((user: any) => {
+
+              const formattedDate = new Date(user.created_at).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              });
+
+              return (
+                <div key={user.id} className="bg-white p-4 rounded shadow-md">
+                  <div>Name: {user.name}</div>
+                  <div>Email: {user.email}</div>
+                  <div>City: {user.city}</div>
+                  <div>State: {user.state}</div>
+                  <div>Nationality: {user.nationality}</div>
+                  <div>Started: {formattedDate}</div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p>No users found</p>
+        )}
+      </div>
     </div>
   );
 }

@@ -38,7 +38,7 @@ class UserSearchController {
                     created_at: "desc"
                 }
         })
-        res.status(200).json({message:"User fetched successfully", users});
+        res.status(200).json({message:"User fetched successfully", data: users});
         } catch (error) {
             console.log(error.message);
             res.status(500).json({message:"Something went wrong"})
