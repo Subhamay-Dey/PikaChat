@@ -65,7 +65,7 @@ function Details({user}:{user: any}) {
     
       const data = await response.json();
       
-      if(!response.ok) throw new Error(data.message || "Form submission failed") // Parse the response as JSON
+      if(!response.ok) throw new Error(data.message || "Form submission failed")
     
       console.log(data);
       console.log(user.token);

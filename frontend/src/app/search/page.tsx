@@ -1,5 +1,6 @@
 "use client"
 
+import SearchUserCards from "@/components/search/SearchUserCards";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -107,34 +108,7 @@ function Search() {
           {loading ? "Processing..." : "Submit"}
         </Button>
       </form>
-
-      <div className="mt-10">
-        {users.length > 0 ? (
-          <div className="space-y-4">
-            {users.map((user: any) => {
-
-              const formattedDate = new Date(user.created_at).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              });
-
-              return (
-                <div key={user.id} className="bg-white p-4 rounded shadow-md">
-                  <div>Name: {user.name}</div>
-                  <div>Email: {user.email}</div>
-                  <div>City: {user.city}</div>
-                  <div>State: {user.state}</div>
-                  <div>Nationality: {user.nationality}</div>
-                  <div>Started: {formattedDate}</div>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <p>No users found</p>
-        )}
-      </div>
+      <SearchUserCards users={users}/>
     </div>
   );
 }
