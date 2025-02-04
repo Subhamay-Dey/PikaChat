@@ -42,7 +42,7 @@ function SearchUserCards({ users }: { users: any }) {
           })}
         </div>
       ) : (
-        <p>No users found</p>
+        <p></p>
       )}
       <LoginComponent open={showLogin} setOpen={setShowLogin} />
     </div>

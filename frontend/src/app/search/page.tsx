@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Link from "next/link";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
@@ -60,6 +61,9 @@ function Search() {
   return (
     <div className="w-full h-screen flex flex-col pt-20 justify-start items-center">
       <div className="text-[50px] font-bold mb-6">Connect to people by thier location</div>
+      <div className="bg-black p-2 rounded-lg text-white ">
+        <Link href={"/dashboard"} className="">Dashboard</Link>
+      </div>
       <form onSubmit={submitHandler} className="flex flex-col gap-6">
         <div>
           <Label htmlFor="city">City/Town Name</Label>
