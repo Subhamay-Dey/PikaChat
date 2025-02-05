@@ -14,19 +14,34 @@ datasource db {
 }
 
 model User {
-  id          Int         @id @default(autoincrement())
-  name        String      @db.VarChar(191)
-  email       String      @unique @db.VarChar(191)
-  image       String?
-  city        String?     @db.VarChar(191)
-  state       String?     @db.VarChar(191)
-  nationality String?     @db.VarChar(191)
-  provider    String      @db.VarChar(100)
-  oauth_id    String
-  created_at  DateTime    @default(now())
-  ChatGroup   ChatGroup[]
+  id            Int             @id @default(autoincrement())
+  name          String          @db.VarChar(191)
+  email         String          @unique @db.VarChar(191)
+  image         String?
+  city          String?         @db.VarChar(191)
+  state         String?         @db.VarChar(191)
+  nationality   String?         @db.VarChar(191)
+  provider      String          @db.VarChar(100)
+  oauth_id      String
+  created_at    DateTime        @default(now())
+  ChatGroup     ChatGroup[]
+  sentMessages  DirectMessage[] @relation("Sender")
+  receivedMessages DirectMessage[] @relation("Receiver")
 
   @@map("users")
+}
+
+model DirectMessage {
+  id         String   @id @default(uuid()) @db.Uuid
+  sender     User     @relation("Sender", fields: [senderId], references: [id], onDelete: Cascade)
+  senderId   Int
+  receiver   User     @relation("Receiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  receiverId Int
+  message    String
+  created_at DateTime @default(now())
+
+  @@index([created_at])
+  @@map("direct_messages")
 }
 
 model ChatGroup {
