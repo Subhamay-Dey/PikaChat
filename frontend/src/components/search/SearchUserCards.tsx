@@ -10,24 +10,6 @@ function SearchUserCards({ users }: { users: any }) {
 
   const { data: session } = useSession();
 
-  const socket = io("http://localhost:3001", {
-    auth: { userId: session?.user }, // Pass userId for direct chat
-  });
-
-  const startChat = (receiverId: number) => {
-    if (!session) {
-      setShowLogin(true);
-    }
-    const message = prompt("Enter your message:");
-    if (message) {
-      socket.emit("directMessage", {
-        senderId: session?.user,
-        receiverId,
-        message,
-      });
-    }
-  };
-
   return (
     <div className="mt-10">
       {users.length > 0 ? (
@@ -49,7 +31,7 @@ function SearchUserCards({ users }: { users: any }) {
                 <div>State: {user.state}</div>
                 <div>Nationality: {user.nationality}</div>
                 <div>Started: {formattedDate}</div>
-                <Button onClick={() => startChat(user.id)} className="w-full">Chat</Button>
+                {/* <Button onClick={() => startChat(user.id)} className="w-full">Chat</Button> */}
               </div>
             );
           })}

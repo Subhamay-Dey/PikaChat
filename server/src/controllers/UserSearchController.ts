@@ -4,18 +4,18 @@ import { Request, Response } from "express";
 interface SearchType {
     city?:string,
     state?:string,
-    nationality?:string
+    nationality?:string,
+    userId?: number,
 }
 
 class UserSearchController {
     static async search(req: Request, res: Response) {
 
         try {
-            const {city, state, nationality} = req.query as SearchType;
-            const userId = req.user?.id; 
+            const {city, state, nationality, userId} = req.query as SearchType;
 
-            if (!nationality) {
-                return res.status(400).json({ message: "Nationality is required" });
+            if (!userId) {
+                return res.status(401).json({ message: "User must be authenticated" });
             }
 
             const users = await prisma.user.findMany({

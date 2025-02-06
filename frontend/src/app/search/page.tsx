@@ -37,11 +37,11 @@ function Search() {
             setLoading(true);
 
             const queryParams = new URLSearchParams({
-              ...(city && { city }),
-              ...(state && { state }),
-              nationality,
-              ...(userId && { userId }),
-            }).toString();
+            ...(city && { city }),
+            ...(state && { state }),
+            nationality,
+            ...(userId && { userId }),
+          }).toString();
 
             const response = await fetch(`http://localhost:8000/api/search?${queryParams}`, {
                 method: "GET",
