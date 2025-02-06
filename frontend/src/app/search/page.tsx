@@ -5,11 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
 function Search() {
+
+  const {data:session} = useSession();
+  const userId = session?.user.id
 
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
@@ -21,6 +25,7 @@ function Search() {
         city,
         state,
         nationality,
+        userId,
     }
 
     const submitHandler = async(e: React.FormEvent) => {
@@ -32,9 +37,10 @@ function Search() {
             setLoading(true);
 
             const queryParams = new URLSearchParams({
-                ...(city && { city }),
-                ...(state && { state }),
-                nationality,
+              ...(city && { city }),
+              ...(state && { state }),
+              nationality,
+              ...(userId && { userId }),
             }).toString();
 
             const response = await fetch(`http://localhost:8000/api/search?${queryParams}`, {
