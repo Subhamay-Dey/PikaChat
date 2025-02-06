@@ -12,10 +12,11 @@ class UserSearchController {
 
         try {
             const {city, state, nationality} = req.query as SearchType;
+            const userId = req.user?.id; 
 
             if (!nationality) {
                 return res.status(400).json({ message: "Nationality is required" });
-              }
+            }
 
             const users = await prisma.user.findMany({
                 where:{
@@ -33,6 +34,9 @@ class UserSearchController {
                         mode: "insensitive",
                         }
                     }),
+                    NOT: {
+                        id: userId,
+                    }
                 },
                 orderBy: {
                     created_at: "desc"
