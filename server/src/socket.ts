@@ -6,17 +6,23 @@ interface CustomSocket extends Socket {
     userId?: number;
 }
 
+interface DirectMessageData {
+    senderId: number;
+    receiverId: number;
+    message: string;
+}
+
 export function setupSocket(io: Server) {
 
     io.use((socket:CustomSocket, next) => {
         const room = socket.handshake.auth.room || socket.handshake.headers.room;
         const userId = socket.handshake.auth.userId;
         if(!room && !userId) {
-            return next(new Error("Invalid room"))
+            return next(new Error("Invalid room"));
         }
         socket.room = room;
         socket.userId = userId;
-        next()
+        next();
     });
 
     io.on('connection', (socket: CustomSocket) => {
@@ -39,17 +45,34 @@ export function setupSocket(io: Server) {
         });
 
         // Direct Message
-        socket.on("directMessage", async ({ senderId, receiverId, message }) => {
-            const chatData = await prisma.directMessage.create({
-                data: { senderId, receiverId, message },
-            });
+        socket.on("directMessage", async (data: DirectMessageData) => {
+            try {
+                const chatData = await prisma.directMessage.create({
+                  data: { 
+                      senderId: data.senderId, 
+                      receiverId: data.receiverId, 
+                      message: data.message   
+                  },
+                  include: {
+                      sender: {
+                          select: {
+                              name: true,
+                              image: true
+                          }
+                      }
+                  }
+                });
+                io.to(`user-${data.receiverId}`).emit("directMessage", chatData);
+                socket.emit("error", "Failed to send message");
+            } catch (error) {
+                console.error("Error saving direct message:", error);
+                socket.emit("error", "Failed to send message");
+            }
 
-            io.to(`user-${receiverId}`).emit("directMessage", chatData);
         });
 
         socket.on("disconnect", () => {
             console.log("A user disconnected", socket.id);
-            
         });
     });
 }
