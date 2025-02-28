@@ -10,7 +10,7 @@ const LoginModal = () => {
     e.preventDefault();
 
     await signIn("google", {
-      callbackUrl: "/details",
+      callbackUrl: "/dashboard",
       redirect: true,
     });
   };
@@ -28,7 +28,7 @@ const LoginModal = () => {
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4">
-          <Button className="w-full flex items-center justify-center gap-2" variant={"outline"} onClick={handleLocationSubmit}>
+          <Button className="w-full flex items-center justify-center gap-2" onClick={handleLocationSubmit}>
             <Image
               src="/images/google.png"
               width={25}
