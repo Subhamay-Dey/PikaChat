@@ -3,13 +3,13 @@ import { Request, Response, NextFunction } from "express"
 
 const authMiddleware = (req:Request, res:Response, next:NextFunction) => {
     const authHeader = req.headers.authorization
-    if(authHeader === null || authHeader === undefined) {
-        return res.status(401).json({status:401, message: "Unauthorized" })
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ status: 401, message: "Unauthorized: No token provided" });
     }
     const token = authHeader.split(" ")[1]
 
     //Verifying the token
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET as string, (err, user) => {
         if(err) {
             return res.status(403).json({status:403, message: "Invalid token" })
         }

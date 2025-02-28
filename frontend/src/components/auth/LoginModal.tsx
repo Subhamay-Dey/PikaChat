@@ -4,11 +4,10 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { signIn } from "next-auth/react";
 
-const LoginModal = () => {
+const LoginModal = async () => {
 
   const handleLocationSubmit = async (e:any) => {
     e.preventDefault();
-
     await signIn("google", {
       callbackUrl: "/dashboard",
       redirect: true,
@@ -37,7 +36,7 @@ const LoginModal = () => {
             />
             Continue with Google
           </Button>
-        </div>
+          </div>
       </DialogContent>
     </Dialog>
   );

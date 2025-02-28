@@ -14,19 +14,69 @@ datasource db {
 }
 
 model User {
-  id          Int         @id @default(autoincrement())
-  name        String      @db.VarChar(191)
-  email       String      @unique @db.VarChar(191)
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(191)
+  email       String   @unique @db.VarChar(191)
   image       String?
-  city        String?     @db.VarChar(100)
-  state       String?     @db.VarChar(100)
-  nationality String?     @db.VarChar(100)
-  provider    String      @db.VarChar(100)
+  city        String?  @db.VarChar(191)
+  state       String?  @db.VarChar(191)
+  nationality String?  @db.VarChar(191)
+  provider    String   @db.VarChar(100)
   oauth_id    String
-  created_at  DateTime    @default(now())
-  ChatGroup   ChatGroup[]
+  created_at  DateTime @default(now())
+
+  // Chat related relations
+  ChatGroup        ChatGroup[]
+  sentMessages     DirectMessage[] @relation("Sender")
+  receivedMessages DirectMessage[] @relation("Receiver")
+
+  // Friend related relations
+  friendsRequested Friendship[] @relation("UserFriends")
+  friendsReceived  Friendship[] @relation("FriendUser")
 
   @@map("users")
+  @@index([city, state, nationality])
+}
+
+model Friendship {
+  id         Int              @id @default(autoincrement())
+  user       User             @relation("UserFriends", fields: [userId], references: [id], onDelete: Cascade)
+  userId     Int
+  friend     User             @relation("FriendUser", fields: [friendId], references: [id], onDelete: Cascade)
+  friendId   Int
+  status     FriendshipStatus @default(PENDING)
+  created_at DateTime         @default(now())
+  updated_at DateTime         @updatedAt
+
+  @@unique([userId, friendId])
+  @@index([userId])
+  @@index([friendId])
+  @@index([status])
+  @@map("friendships")
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  BLOCKED
+}
+
+model DirectMessage {
+  id         String   @id @default(uuid()) @db.Uuid
+  sender     User     @relation("Sender", fields: [senderId], references: [id], onDelete: Cascade)
+  senderId   Int
+  receiver   User     @relation("Receiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  receiverId Int
+  message    String   @db.Text
+  read       Boolean  @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([created_at])
+  @@map("direct_messages")
 }
 
 model ChatGroup {

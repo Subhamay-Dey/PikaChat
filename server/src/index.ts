@@ -17,10 +17,12 @@ const server = createServer(app)
 const io = new Server(server, {
   cors: {
     origin: [process.env.FRONTEND_URL, "https://admin.socket.io"],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
   },
   adapter: createAdapter(redis)
 })
+
 
 instrument(io, {
   auth: false,
@@ -29,6 +31,14 @@ instrument(io, {
 
 setupSocket(io) 
 export {io}
+
+// CORS configuration for all requests (before routes)
+app.use((req: Request, res: Response, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins (for production, specify your domain)
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 
 app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 app.use(express.json());

@@ -5,6 +5,7 @@ import ChatGroupController from "../controllers/ChatGroupController.js";
 import ChatGroupUserController from "../controllers/ChatGroupUserController.js";
 import ChatsController from "../controllers/ChatsController.js";
 import LocationController from "../controllers/LocationController.js";
+import UserSearchController from "../controllers/UserSearchController.js";
 
 const router = Router();
 
@@ -13,6 +14,9 @@ router.post("/auth/login", AuthController.login);
 
 //User location route
 router.post("/details", authMiddleware, LocationController.addlocation);
+
+//User Search route
+router.get("/search", UserSearchController.search)
 
 // Chat Group Route
 router.post("/chat-group", authMiddleware, ChatGroupController.store);

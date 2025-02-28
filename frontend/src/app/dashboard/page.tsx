@@ -1,11 +1,11 @@
 
 import { getServerSession } from 'next-auth'
 import React from 'react'
-import { authOptions, CustomSession } from '../api/auth/[...nextauth]/options'
 import DashNavbar from '@/components/dashboard/DashNavbar';
 import CreateChat from '@/components/groupChat/CreateChat';
 import { fetchChatGroups } from '@/fetch/groupFetch';
 import GroupChatCard from '@/components/groupChat/GroupChatCard';
+import { authOptions, CustomSession } from '../api/auth/[...nextauth]/options';
 
 async function Dashboard() {
 
@@ -18,7 +18,7 @@ async function Dashboard() {
   return (
     <div>
       {/* <p>{JSON.stringify(session)}</p> */}
-      <DashNavbar
+      <DashNavbar 
         name={session?.user?.name!}
         image={session?.user?.image ?? undefined}
       />
